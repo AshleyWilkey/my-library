@@ -61,6 +61,11 @@ function buildResultElement(doc) {
           </p>
         </div> 
       </div>
+      <div class="col result-action">
+        <button class="btn btn-light result-add">
+          <img src="images/book-plus-outline.svg" alt="add book icon"/>
+        </button>
+      </div>
     </div>
   </div>
   `;

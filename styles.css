@@ -42,3 +42,11 @@ body {
   font-size: 0.8rem;
   margin-bottom: 0;
 }
+.result .result-add img {
+  width: 1.5rem;
+}
+.result .result-action {
+  justify-content: right;
+  display: flex;
+  max-width: 120px;
+}
