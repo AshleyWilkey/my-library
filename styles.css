@@ -5,6 +5,13 @@ body {
   background-color: #f2e8df;
   margin-top: 6rem;
 }
+#search-form {
+  max-width: 540px;
+}
+
+#results {
+  max-width: 540px;
+}
 
 .header {
   display: flex;
@@ -21,9 +28,11 @@ body {
   font-weight: 600;
   font-size: 3rem;
 }
+
 .card.result {
   margin-bottom: 0.4rem;
   min-height: fit-content;
+  max-width: 540px;
 }
 .result .result-img {
   background-size: cover;
@@ -49,4 +58,13 @@ body {
   justify-content: right;
   display: flex;
   max-width: 120px;
+}
+
+.book-text {
+  font-size: 0.7rem;
+}
+
+.book-author {
+  font-size: 0.7rem;
+  margin: 0.2rem 0;
 }
