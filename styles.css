@@ -68,3 +68,22 @@ body {
   font-size: 0.7rem;
   margin: 0.2rem 0;
 }
+
+.book-remove {
+  position: absolute;
+  right: 0;
+}
+
+.btn-actions {
+  display: inline-block;
+  bottom: 5px;
+  right: 5px;
+}
+
+.btn-action {
+  font-size: 0.7rem;
+}
+
+.btn-action img {
+  width: 1.5rem;
+}
