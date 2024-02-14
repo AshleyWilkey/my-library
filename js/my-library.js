@@ -8,9 +8,11 @@ let myLibrary = getLibrary();
 const searchForm = document.getElementById("search-form");
 const resultsElement = document.getElementById("results");
 const libraryElement = document.getElementById("library");
+const libraryName = document.getElementById("library-name");
 
 renderLibraryName();
 renderLibrary();
+showCopyright();
 
 searchForm.addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -48,17 +50,9 @@ function renderLibrary() {
 
 function renderLibraryName() {
   const myName = localStorage.getItem("name");
-  const libraryName = document.getElementById("library-name");
 
   if (!myName || myName === "null") {
-    const nameInput = prompt("Please tell me your name");
-
-    if (nameInput) {
-      localStorage.setItem("name", nameInput);
-      libraryName.innerText = `${nameInput}'s Library`;
-    } else {
-      libraryName.innerText = "My Library";
-    }
+    setLibraryName("Please tell me your name:");
   } else {
     libraryName.innerText = `${myName}'s Library`;
   }
@@ -108,15 +102,13 @@ function buildBookElement(book) {
 
   div.innerHTML = `
   <div class="card">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img
-          src="${book.coverImg}"
-          class="img-thumbnail rounded-start h-auto"
-          alt="..."
-        />
+    <div class="row g-0 book-row">
+      <div class="col-4 book-img" style="background-image: url(${
+        book.coverImg
+      })">
+        
       </div>
-      <div class="col-md-8">
+      <div class="col-8">
         <button
           class="btn btn-light book-remove btn-action"
           onclick="removeBookFromLibrary('${book.id}')"
@@ -167,7 +159,7 @@ function buildBookElement(book) {
                     : "images/book-heart-outline.svg"
                 }"
                 alt="add book icon"
-              />Loved it
+              />Loved
             </button>
           </div>
         </div>
@@ -208,6 +200,31 @@ async function addBookToLibrary(key) {
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
 
+function clearLibrary() {
+  libraryElement.innerHTML = "";
+  localStorage.removeItem("myLibrary");
+}
+
+function removeBookFromLibrary(workId) {
+  const bookElement = document.getElementById(workId);
+  bookElement.remove();
+
+  myLibrary = myLibrary.filter((book) => workId !== book.id);
+
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+function setLibraryName(promptMessage) {
+  const newName = prompt(promptMessage);
+
+  if (newName) {
+    localStorage.setItem("name", newName);
+    libraryName.innerText = `${newName}'s Library`;
+  } else {
+    libraryName.innerText = "My Library";
+  }
+}
+
 function toggleProperty(workId, prop) {
   const idx = myLibrary.findIndex((book) => {
     console.log(workId, book.id);
@@ -229,15 +246,6 @@ function toggleProperty(workId, prop) {
     if (toggleTo) icon.src = "images/book-heart.svg";
     else icon.src = "images/book-heart-outline.svg";
   }
-}
-
-function removeBookFromLibrary(workId) {
-  const bookElement = document.getElementById(workId);
-  bookElement.remove();
-
-  myLibrary = myLibrary.filter((book) => workId !== book.id);
-
-  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
 
 // Helpers
@@ -284,4 +292,11 @@ function renderPages(pages) {
       </small>
     `;
   return "";
+}
+
+function showCopyright() {
+  const p = document.querySelector("footer p");
+  const currentYear = new Date().getFullYear();
+
+  p.innerText = p.innerText.replace("CURRENT_YEAR", currentYear);
 }
